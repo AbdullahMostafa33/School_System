@@ -1,3 +1,46 @@
 {
-    "I love programming.": "احب البرمحة"
+      "//////////////////// login and register \\\\\\\\\\\\\\\\\\\\": "",
+    "Password":"كلمة السر",
+    "Confirm Password":"تاكيد كلمة المرور",
+    "Password requirements": "متطلبات كلمة المرور",
+    "Name": "الاسم",
+    "Email": "الايميل",
+    "Register": "انشاء حساب",
+    "Already Registered?": "لديك حساب بالفعل ؟",
+    "Sign up": "انشاء",
+        "To create a new password, you have to meet all of the following requirements:": "لإنشاء كلمة مرور جديدة، يجب أن تستوفي جميع المتطلبات التالية",
+    "Minimum 8 character": "على الأقل 8 أحرف",
+    "At least one special character": "على الأقل حرف خاص واحد",
+    "At least one number": "على الأقل رقم واحد",
+    "Can’t be the same as a previous password": "لا يمكن أن يكون نفس كلمة المرور السابقة",
+    "Sign in": "تسجيل الدخول",
+    "remember-me": "تذكرني",
+    "forget password ?": "هل نسيت كلمة المرور؟",
+    "Let me in": "دخول ",
+    "don't have account ?": "ليس لديك حساب؟",
+
+    
+    "//////////////////// sidebar \\\\\\\\\\\\\\\\\\\\":"",
+    "Academic stages": "المراحل الدراسية",
+    "Notice": "الملاحظات",
+
+
+
+        "//////////////////// statge \\\\\\\\\\\\\\\\\\\\": "",
+    "Add statge": "اضافة مرحلة دراسية",
+    "Edit statge": "تعديل مرحلة دراسية",
+    "Close": "اغلاق",
+    "Submit":"تاكيد",
+    "":"",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
+    
 }
