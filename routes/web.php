@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Statge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -8,7 +9,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
+Route::get('/dashboard', function () 
+{
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -37,7 +39,8 @@ use Illuminate\Support\Facades\App;
 
 //     App::setLocale($locale);
 
-//     return view('');
+//     $statges = Statge::all();
+//     return view('admin.statge', compact('statges'));
 
 // });
 

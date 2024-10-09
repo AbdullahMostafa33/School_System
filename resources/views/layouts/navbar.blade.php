@@ -7,6 +7,13 @@
         </form>
         <ul class="nav">
           <li class="nav-item">
+             
+    <select id="language-select" class="nav-link text-muted my-2">
+      <option value="en">En 🇬🇧</option>
+      <option value="ar">Ar 🇪🇬</option>
+    </select>
+            </li>
+          <li class="nav-item">
             <a class="nav-link text-muted my-2" href="#" id="modeSwitcher" data-mode="dark">
               <i class="fe fe-sun fe-16"></i>
             </a>
@@ -37,3 +44,25 @@
           </li>
         </ul>
       </nav>
+
+<script>
+  // for select lang
+    $('#language-select').val('{{$_COOKIE['lang']??'en'}}');
+    $('#language-select').change(
+        function(){
+          var selectedLang = $(this).val();
+        $.ajax({
+            url: '{{route('lang')}}', 
+            type: 'GET',
+            data: {
+                lang: selectedLang,
+            },
+            success:function(){
+              // redirect website
+              window.location.href = window.location.href              
+            }
+        });
+    
+        }
+    )
+</script>

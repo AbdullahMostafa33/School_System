@@ -56,12 +56,13 @@
                             </th>
                             <th>{{__('ID')}}</th>
                             <th>{{__('Name')}}</th>
+                            <th>{{__('Stage')}}</th>
                             <th>{{__('Notice')}}</th>  
                             <th>{{__('Action')}}</th>
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($statges as $i=>$statge)                                                     
+                          @foreach ($grades as $i=>$grade)                                                     
                           <tr>
                             <td>
                               <div class="custom-control custom-checkbox">
@@ -70,14 +71,15 @@
                               </div>
                             </td>
                             <td>{{++$i}}</td>
-                            <td>{{$statge->name}}</td>
-                            <td>{{$statge->notice}}</td>                            
+                            <td>{{$grade->name}}</td>
+                            <td>{{$grade->statge->name}}</td>
+                            <td>{{$grade->notice}}</td>                            
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">{{__('Action')}}</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$statge->name}}" data-notice="{{$statge->notice}}" data-url="{{route('statge.update',$statge->id)}}">{{__('Edit')}}</button>
-                                <form action="{{route('statge.destroy',$statge->id)}}" method="POST">
+                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$grade->name}}" data-notice="{{$grade->notice}}" data-statge_id="{{$grade->statge_id}}" data-url="{{route('grades.update',$grade->id)}}">{{__('Edit')}}</button>
+                                <form action="{{route('grades.destroy',$grade->id)}}" method="POST">
                                   @csrf
                                   @method('delete')
                                   <button class="dropdown-item"  style="color: red">{{__('Remove')}}</button>
@@ -104,26 +106,37 @@
                 </div> <!-- simple table -->
               </div> <!-- end section -->
           
-              <!-- add statge -->
+              <!-- add grade -->
               <div id="Overlay_add" class="overlay">
         <div class="widget">
             <h3>{{__("Enter Information")}}</h3>
            
                  <div class="card shadow mb-4">
                   <div class="card-header">
-                    <strong  class="card-title">{{__('Add statge')}}</strong>
+                    <strong  class="card-title">{{__('Add grade')}}</strong>
                   </div>
                   <div class="card-body">
-                    <form method="POST" action="{{route('statge.store')}}" id="form1">
+                    <form method="POST" action="{{route('grades.store')}}" id="form1">
                       @csrf
                      
                       <div class="form-row">
                         <div class="form-group ">
                           <label>{{__('Name')}}</label>
                           <input type="text" class="form-control" name="name" >
-                        </div>                                              
+                        </div> 
+                        <div class="form-group col-md-6">
+                          <label for="simple-select2">{{__('Stage')}}</label>
+                          <select class="form-control select2" id="simple-select2" name="statge_id">
+                            <optgroup label="{{__('Select Stage')}}">
+                              @foreach ($stages as $stage)
+                               <option value="{{$stage->id}}">{{$stage->name}}</option>
+                              @endforeach  
+                            </optgroup>                            
+                          </select>
+                        </div> <!-- form-group -->
+                      <div class="form-group ">                                             
                       </div>
-                      <div class="form-group ">
+                       
                         <label>{{__('Notice')}}</label>
                          <textarea name="notice"   class="form-control"  ></textarea>
                       </div>                      
@@ -134,14 +147,14 @@
                 </div>
         </div>
     </div>
- <!-- edit statge -->
+ <!-- edit grade -->
      <div id="Overlay_edit" class="overlay">
         <div class="widget">
             <h3>Enter Information</h3>
            
                  <div class="card shadow mb-4">
                   <div class="card-header">
-                    <strong  class="card-title">{{__('Edit statge')}}</strong>
+                    <strong  class="card-title">{{__('Edit grade')}}</strong>
                   </div>
                   <div class="card-body">
                     <form method="POST"  id="form_edit">
@@ -151,8 +164,20 @@
                         <div class="form-group ">
                           <label>{{__('Name')}}</label>
                           <input type="text" class="form-control" name="name" id="name_input">
-                        </div>                                              
-                      </div>
+                          
+                        </div> 
+                         <div class="form-group col-md-6">
+                          <label for="simple-select2">{{__('Stage')}}</label>
+                          <select class="form-control"  id="select_edit" name="statge_id">
+                            <option disabled selected>select stage</option>
+                              @foreach ($stages as $stage)
+                               <option value="{{$stage->id}}">{{$stage->name}}</option>
+                              @endforeach  
+                                                      
+                          </select>
+                        </div> <!-- form-group -->
+                       </div>
+                      
                       <div class="form-group ">
                         <label>{{__('Notice')}}</label>
                          <textarea name="notice"   class="form-control" id="notice_input" ></textarea>
@@ -179,6 +204,7 @@
                $('#Overlay_edit').css('display','block')
                $('#name_input').val($(this).data('name'))
                $('#notice_input').val($(this).data('notice'))
+               $('#select_edit').val($(this).data('statge_id'))
                $('#form_edit').attr('action', $(this).data('url'));               
             })
             //close edit

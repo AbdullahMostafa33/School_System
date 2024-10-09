@@ -26,14 +26,14 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="{{asset('css/'.$dir.'/app-light.css')}}" id="lightTheme" disabled>
     <link rel="stylesheet" href="{{asset('css/'.$dir.'/app-dark.css')}}" id="darkTheme">
-       <link rel="stylesheet" href="{{asset('css/'.$dir.'/added.css')}}">
+       <link rel="stylesheet" href="{{asset('css/added.css')}}">
 
   </head>
   <script src="{{asset('jquery-3.7.1.js')}}"></script>
 
     <body class="vertical  dark {{$dir}} ">
-          @if (session('message'))
+         @if (session('message'))
     <div id="notification" class="notification">
-        {{ session('message') }}
+        {{  session('message') }}
     </div>
       @endif

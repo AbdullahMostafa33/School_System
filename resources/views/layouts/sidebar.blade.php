@@ -61,7 +61,7 @@
               </ul>
             </li>
             <li class="nav-item w-100">
-              <a class="nav-link" href="widgets.html">
+              <a class="nav-link" href="{{route('grades.index')}}">
                 <i class="fe fe-layers fe-16"></i>
                 <span class="ml-3 item-text">Widgets</span>
                 <span class="badge badge-pill badge-primary">New</span>

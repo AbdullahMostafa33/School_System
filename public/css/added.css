@@ -44,3 +44,43 @@
     right: 10px;
     /* Slide in position */
 }
+
+/* select lang*/
+.language-selector {
+    position: relative;
+    display: inline-block;
+}
+
+#language-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 5px 10px;
+    border: none;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#language-select::after {
+    content: "\25BC";
+    /* Down arrow */
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 12px;
+    pointer-events: none;
+}
+
+#language-select option {
+    padding-left: 25px;
+}
+
+#language-select option:before {
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    margin-right: 5px;
+}

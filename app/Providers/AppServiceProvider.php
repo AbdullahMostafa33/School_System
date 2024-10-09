@@ -20,7 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $stages=Statge::all();
-        view()->share('stages', $stages);
+        //share with all views
+        view()->composer('*', function ($view) {
+            $stages = Statge::all();
+            $view->with('stages', $stages);
+        });
     }
 }

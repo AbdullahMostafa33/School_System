@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('statges', function (Blueprint $table) {
+        Schema::create('grades', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('statge_id')->constrained()->onDelete('cascade');;
             $table->string('name');
             $table->text('notice')->nullable();
             $table->timestamps();
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('statges');
+        Schema::dropIfExists('grades');
     }
 };

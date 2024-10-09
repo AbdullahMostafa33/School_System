@@ -23,7 +23,7 @@ class StatgeController extends Controller
 
         Statge::create($request->all());
 
-        return back()->with('message', ' added  successful!');
+        return back()->with('message', " added  successful!");
         }
 
    
@@ -45,6 +45,6 @@ class StatgeController extends Controller
 
         $statge=Statge::findOrFail($id);
         $statge->delete();
-        return back()->with('message', ' delete  successful!');
+        return back()->with('message', 'تم الحذف');
     }
 }

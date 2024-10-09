@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
-class Statge extends Model
+class Grade extends Model
 {
     use HasFactory;
-    protected $fillable=['name', 'notice'];
+    protected $fillable = ['name', 'notice', 'statge_id'];
 
-    public static function translate($model)
-    {
+    public static function translate($model){
         $tr = new GoogleTranslate(app()->getLocale());
         $model->name = $tr->translate($model->name);
+        $model->statge->name = $tr->translate($model->statge->name);
         $model->notice = $tr->translate($model->notice);
 
         return $model;
@@ -24,7 +24,8 @@ class Statge extends Model
     public static function all($columns = ['*'])
     {
         $models = parent::all();
-        if (app()->getLocale() != 'en') {
+       
+        if(app()->getLocale()!='en'){
             foreach ($models as $model) {
                 $model = self::translate($model);
             }
@@ -32,11 +33,9 @@ class Statge extends Model
 
         return $models;
     }
-    
 
-    public function grades()
-    {
-        return $this->hasMany(Grade::class);
+    public function statge (){
+        return $this->belongsTo(Statge::class);
     }
 
 }
