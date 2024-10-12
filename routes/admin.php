@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\StatgeController;
 use Illuminate\Http\Request;
@@ -9,7 +10,11 @@ Route::get('/test', function () {
     return view('components.sidebar');
 });
 Route::resource('/statge', StatgeController::class);
+Route::get('/grades/get', [GradeController::class, 'getGrades'])->name('grades.get');
 Route::resource('/grades', GradeController::class);
+Route::get('/classrooms/filter', [ClassroomController::class, 'filterclasses'])->name('classrooms.filter');
+Route::resource('/classrooms', ClassroomController::class);
+
 
 
 // change lang of website

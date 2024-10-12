@@ -8,26 +8,28 @@
         <div class="row">
                 <!-- Striped rows -->
                 <div class="col-md-12 my-4">
-                  <h2 class="h4 mb-1">{{__('Academic Grades')}}</h2>
+                  <h2 class="h4 mb-1">{{__('Academic Classrooms')}}</h2>
                   <div class="card shadow">
                     <div class="card-body">
                       <div class="toolbar row mb-3">
                         <div class="col">
                           <form class="form-inline">
+                            <form action="{{route('classrooms.index')}}">
                             <div class="form-row">
                               <div class="form-group col-auto">
                                 <label for="search" class="sr-only">{{__('Search')}}</label>
-                                <input type="text" class="form-control" id="search" value="" placeholder="{{__('Search')}}">
+                                <input type="text" class="form-control" name="search" placeholder="{{__('Search')}}">
                               </div>
                               <div class="form-group col-auto ml-3">
-                                <label class="my-1 mr-2 sr-only" for="inlineFormCustomSelectPref">Status</label>
-                                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                                  <option selected>Choose...</option>
-                                  <option value="1">Processing</option>
-                                  <option value="2">Success</option>
-                                  <option value="3">Pending</option>
-                                  <option value="3">Hold</option>
+                                <label class="my-1 mr-2 sr-only" for="inlineFormCustomSelectPref">Status</label>                               
+                                <select class="custom-select my-1 mr-sm-2" name="filter">                                                                                                                              ">
+                                  <option disabled selected>{{__('Filter Stage')}}</option>
+                                  @foreach ($stages as $stage)
+                                    <option value="{{$stage->id}}">{{$stage->name}}</option>
+                                  @endforeach
                                 </select>
+                                <button class="btn btn-secondary">{{__('Filter')}}</button>
+                                </form>
                               </div>
                             </div>
                           </form>
@@ -56,13 +58,14 @@
                             </th>
                             <th>{{__('ID')}}</th>
                             <th>{{__('Name')}}</th>
+                            <th>{{__('Grade')}}</th>
                             <th>{{__('Stage')}}</th>
-                            <th>{{__('Notice')}}</th>  
+                            <th>{{__('Status')}}</th>  
                             <th>{{__('Action')}}</th>
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($grades as $i=>$grade)                                                     
+                          @foreach ($classrooms as $i=>$classroom)                                                     
                           <tr>
                             <td>
                               <div class="custom-control custom-checkbox">
@@ -71,15 +74,20 @@
                               </div>
                             </td>
                             <td>{{++$i}}</td>
-                            <td>{{$grade->name}}</td>
-                            <td>{{$grade->statge->name}}</td>
-                            <td>{{$grade->notice}}</td>                            
+                            <td>{{$classroom->name}}</td>
+                            <td>{{$classroom->grade->name}}</td>
+                            <td>{{$classroom->grade->statge->name}}</td>
+                            @if ($classroom->status)
+                               <td><span class="badge badge-pill badge-success">{{__("Active")}}</span></td>
+                            @else
+                                <td><span class="badge badge-pill badge-danger">{{__("Inactive")}}</span></td>
+                            @endif
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">{{__('Action')}}</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$grade->name}}" data-notice="{{$grade->notice}}" data-statge_id="{{$grade->statge_id}}" data-url="{{route('grades.update',$grade->id)}}">{{__('Edit')}}</button>
-                                <form action="{{route('grades.destroy',$grade->id)}}" method="POST">
+                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$classroom->name}}" data-status="{{$classroom->status}}" data-statge_id="{{$classroom->grade->statge->id}}" data-grade_id="{{$classroom->grade_id}}" data-url="{{route('classrooms.update',$classroom->id)}}">{{__('Edit')}}</button>
+                                <form action="{{route('classrooms.destroy',$classroom->id)}}" method="POST">
                                   @csrf
                                   @method('delete')
                                   <button class="dropdown-item"  style="color: red">{{__('Remove')}}</button>
@@ -106,39 +114,50 @@
                 </div> <!-- simple table -->
               </div> <!-- end section -->
           
-              <!-- add grade -->
+              <!-- add classroom -->
               <div id="Overlay_add" class="overlay">
         <div class="widget">
             <h3>{{__("Enter Information")}}</h3>
            
                  <div class="card shadow mb-4">
                   <div class="card-header">
-                    <strong  class="card-title">{{__('Add grade')}}</strong>
+                    <strong id="title_form" class="card-title">{{__('Add classroom')}}</strong>
                   </div>
                   <div class="card-body">
-                    <form method="POST" action="{{route('grades.store')}}" id="form1">
+                    <form method="POST" action="{{route('classrooms.store')}}" id="form_manage">
                       @csrf
                      
                       <div class="form-row">
                         <div class="form-group ">
                           <label>{{__('Name')}}</label>
-                          <input type="text" class="form-control" name="name" >
+                          <input type="text" class="form-control" name="name" id="name_input" placeholder="{{__('Enter Name')}}">
                         </div> 
                         <div class="form-group col-md-6">
-                          <label for="simple-select2">{{__('Stage')}}</label>
-                          <select class="form-control select2" id="simple-select2" name="statge_id">
-                            <optgroup label="{{__('Select Stage')}}">
+                          <label for="simple-select2">{{__('Status')}}</label>
+                          <select class="form-control " id="status_input" name="status">
+                            <option value="null option" disabled selected>{{__('Select Status')}}</option>                                                     
+                               <option value="1">{{__('Activie')}}</option>
+                               <option value="0">{{__('Inactive')}}</option>                                                                              
+                          </select>
+                        </div> <!-- form-group -->
+                        <div class="form-group col-md-6">
+                          <label>{{__('Stage')}}</label>
+                          <select class="form-control " id="select_stage" >
+                            <option value="null option" disabled selected>{{__('Select Stage')}}</option>
                               @foreach ($stages as $stage)
                                <option value="{{$stage->id}}">{{$stage->name}}</option>
                               @endforeach  
-                            </optgroup>                            
+                          </select>
+                        </div> <!-- form-group -->
+                        <div class="form-group col-md-6">
+                          <label >{{__('Grade')}}</label>
+                          <select class="form-control" id="select_grade" name="grade_id">
+                              <option value="null option" disabled selected>{{__('Select Grade')}}</option>                                                       
                           </select>
                         </div> <!-- form-group -->
                       <div class="form-group ">                                             
-                      </div>
+                      </div>                       
                        
-                        <label>{{__('Notice')}}</label>
-                         <textarea name="notice"   class="form-control"  ></textarea>
                       </div>                      
                       <button type="submit" id="btn_form" class="btn btn-primary">{{__('Submit')}}</button>
                       <span  id="close_btn_add" class="btn btn-primary" style="background-color: grey">{{__('Close')}}</span>
@@ -147,71 +166,68 @@
                 </div>
         </div>
     </div>
- <!-- edit grade -->
-     <div id="Overlay_edit" class="overlay">
-        <div class="widget">
-            <h3>Enter Information</h3>
-           
-                 <div class="card shadow mb-4">
-                  <div class="card-header">
-                    <strong  class="card-title">{{__('Edit grade')}}</strong>
-                  </div>
-                  <div class="card-body">
-                    <form method="POST"  id="form_edit">
-                      @csrf
-                     @method('put')
-                      <div class="form-row">
-                        <div class="form-group ">
-                          <label>{{__('Name')}}</label>
-                          <input type="text" class="form-control" name="name" id="name_input">
-                          
-                        </div> 
-                         <div class="form-group col-md-6">
-                          <label for="simple-select2">{{__('Stage')}}</label>
-                          <select class="form-control"  id="select_edit" name="statge_id">
-                            <option disabled selected>select stage</option>
-                              @foreach ($stages as $stage)
-                               <option value="{{$stage->id}}">{{$stage->name}}</option>
-                              @endforeach  
-                                                      
-                          </select>
-                        </div> <!-- form-group -->
-                       </div>
-                      
-                      <div class="form-group ">
-                        <label>{{__('Notice')}}</label>
-                         <textarea name="notice"   class="form-control" id="notice_input" ></textarea>
-                      </div>                      
-                      <button type="submit" id="btn_form" class="btn btn-primary">Edit</button>
-                      <span  id="close_btn_edit" class="btn btn-primary" style="background-color: grey">Close</span>
-                    </form>                   
-                  </div>
-                </div>
-        </div>
-    </div>
-     
 
       </main> <!-- main -->
     </div> <!-- .wrapper -->
          <script>
-          //add
+          //click add more
           $('#addWidgetBtn').click(function(){
              $('#Overlay_add').css('display','block')
           })
 
-          //edit
+          //click edit
           $('.edit_btn').click(function(){
-               $('#Overlay_edit').css('display','block')
+               $('#Overlay_add').css('display','block')
                $('#name_input').val($(this).data('name'))
-               $('#notice_input').val($(this).data('notice'))
-               $('#select_edit').val($(this).data('statge_id'))
-               $('#form_edit').attr('action', $(this).data('url'));               
+               $('#status_input').val($(this).data('status'))
+               $('#select_stage').val($(this).data('statge_id'))
+               getgrades($(this).data('statge_id'))
+               $('#select_grade').val($(this).data('grade_id'))
+               $('#form_manage').attr('action', $(this).data('url')); 
+              $('#form_manage').append('<input id="method_put" type="hidden" name="_method" value="PUT">');
+              $('#btn_form').text('{{__('Update')}}')
+              $('#title_form').text("{{__('Update classroom')}}")                       
             })
-            //close edit
-             $('#close_btn_edit,#close_btn_add').click(function(){
-               $('#Overlay_add , #Overlay_edit').css('display','none')            
+            //close 
+             $('#close_btn_add').click(function(){
+               $('#Overlay_add ').css('display','none') 
+               // return default add content
+               $('#name_input').val('')  
+               $('#status_input').val('null option')  
+               $('#select_stage').val('null option')
+               $('#select_grade').val('null option') 
+               $('#form_manage').attr('action', '{{route('classrooms.store')}}') 
+               $('#method_put').remove();
+               $('#btn_form').text('{{__('Submit')}}')
+               $('#title_form').text('{{__('Add classroom')}}')
+
             })
-   
+
+   //// get grade when select stage
+            $('#select_stage').on('change',function(){
+             var select_value=$(this).val()
+             getgrades(select_value)
+          })
+
+
+          // get grade and put it in select grade
+          function getgrades(select_value){            
+                $.ajax({
+              url:"{{route('grades.get')}}",
+              type:'GET',
+              data:{statge_id:select_value},
+              success:function(grades){
+                var x=""
+                grades.forEach(grade => {                  
+                 x+="<option value='"+grade.id+"'>"+grade.name+"</option>";
+                });
+                
+                $('#select_grade').empty()
+                $('#select_grade').append(x);
+              },
+            })
+              }               
+            
 </script>
 
         @include('layouts.footer')

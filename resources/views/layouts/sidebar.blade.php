@@ -63,36 +63,15 @@
             <li class="nav-item w-100">
               <a class="nav-link" href="{{route('grades.index')}}">
                 <i class="fe fe-layers fe-16"></i>
-                <span class="ml-3 item-text">Widgets</span>
-                <span class="badge badge-pill badge-primary">New</span>
+                <span class="ml-3 item-text">{{__('Academic Grades')}}</span>
               </a>
             </li>
-            <li class="nav-item dropdown">
-              <a href="#forms" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-                <i class="fe fe-credit-card fe-16"></i>
-                <span class="ml-3 item-text">Forms</span>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{{route('classrooms.index')}}">
+                <i class="fe fe-layers fe-16"></i>
+                <span class="ml-3 item-text">{{__('Classrooms')}}</span>
               </a>
-              <ul class="collapse list-unstyled pl-4 w-100" id="forms">
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="./form_elements.html"><span class="ml-1 item-text">Basic Elements</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="./form_advanced.html"><span class="ml-1 item-text">Advanced Elements</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="./form_validation.html"><span class="ml-1 item-text">Validation</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="./form_wizard.html"><span class="ml-1 item-text">Wizard</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="./form_layouts.html"><span class="ml-1 item-text">Layouts</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link pl-3" href="./form_upload.html"><span class="ml-1 item-text">File upload</span></a>
-                </li>
-              </ul>
-            </li>
+            </li>            
             <li class="nav-item dropdown">
               <a href="#tables" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-grid fe-16"></i>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grade;
+use App\Models\Statge;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
@@ -10,8 +11,9 @@ class GradeController extends Controller
     
     public function index()
     {
-        $grades=Grade::all();       
-        return view('admin.grades',compact('grades'));
+        $grades=Grade::all();
+        $stages=Statge::all();       
+        return view('admin.grades',compact('grades' ,'stages',));
     }
 
     public function store(Request $request)
@@ -47,5 +49,12 @@ class GradeController extends Controller
         $grade = Grade::findOrFail($id);
         $grade->delete();
         return back()->with('message', 'تم الحذف');
+    }
+
+    // get grade of same stage  for ajax
+    public function getGrades(Request $request)
+    {
+        $grades = Grade::where('statge_id', $request->statge_id)->get();
+        return $grades;
     }
 }
