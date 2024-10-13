@@ -61,7 +61,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($statges as $i=>$statge)                                                     
+                          @foreach ($stages as $i=>$stage)                                                     
                           <tr>
                             <td>
                               <div class="custom-control custom-checkbox">
@@ -70,14 +70,14 @@
                               </div>
                             </td>
                             <td>{{++$i}}</td>
-                            <td>{{$statge->name}}</td>
-                            <td>{{$statge->notice}}</td>                            
+                            <td>{{$stage->name}}</td>
+                            <td>{{$stage->notice}}</td>                            
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">{{__('Action')}}</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$statge->name}}" data-notice="{{$statge->notice}}" data-url="{{route('statge.update',$statge->id)}}">{{__('Edit')}}</button>
-                                <form action="{{route('statge.destroy',$statge->id)}}" method="POST">
+                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$stage->name}}" data-notice="{{$stage->notice}}" data-url="{{route('stage.update',$stage->id)}}">{{__('Edit')}}</button>
+                                <form action="{{route('stage.destroy',$stage->id)}}" method="POST">
                                   @csrf
                                   @method('delete')
                                   <button class="dropdown-item"  style="color: red">{{__('Remove')}}</button>
@@ -104,17 +104,17 @@
                 </div> <!-- simple table -->
               </div> <!-- end section -->
           
-              <!-- add statge -->
+              <!-- add stage -->
               <div id="Overlay_add" class="overlay">
         <div class="widget">
             <h3>{{__("Enter Information")}}</h3>
            
                  <div class="card shadow mb-4">
                   <div class="card-header">
-                    <strong  class="card-title">{{__('Add statge')}}</strong>
+                    <strong  class="card-title">{{__('Add stage')}}</strong>
                   </div>
                   <div class="card-body">
-                    <form method="POST" action="{{route('statge.store')}}" id="form1">
+                    <form method="POST" action="{{route('stage.store')}}" id="form1">
                       @csrf
                      
                       <div class="form-row">
@@ -134,14 +134,14 @@
                 </div>
         </div>
     </div>
- <!-- edit statge -->
+ <!-- edit stage -->
      <div id="Overlay_edit" class="overlay">
         <div class="widget">
             <h3>Enter Information</h3>
            
                  <div class="card shadow mb-4">
                   <div class="card-header">
-                    <strong  class="card-title">{{__('Edit statge')}}</strong>
+                    <strong  class="card-title">{{__('Edit stage')}}</strong>
                   </div>
                   <div class="card-body">
                     <form method="POST"  id="form_edit">

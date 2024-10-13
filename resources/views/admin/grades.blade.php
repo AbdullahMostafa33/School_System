@@ -72,13 +72,13 @@
                             </td>
                             <td>{{++$i}}</td>
                             <td>{{$grade->name}}</td>
-                            <td>{{$grade->statge->name}}</td>
+                            <td>{{$grade->stage->name}}</td>
                             <td>{{$grade->notice}}</td>                            
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">{{__('Action')}}</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$grade->name}}" data-notice="{{$grade->notice}}" data-statge_id="{{$grade->statge_id}}" data-url="{{route('grades.update',$grade->id)}}">{{__('Edit')}}</button>
+                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$grade->name}}" data-notice="{{$grade->notice}}" data-stage_id="{{$grade->stage_id}}" data-url="{{route('grades.update',$grade->id)}}">{{__('Edit')}}</button>
                                 <form action="{{route('grades.destroy',$grade->id)}}" method="POST">
                                   @csrf
                                   @method('delete')
@@ -126,7 +126,7 @@
                         </div> 
                         <div class="form-group col-md-6">
                           <label for="simple-select2">{{__('Stage')}}</label>
-                          <select class="form-control select2" id="simple-select2" name="statge_id">
+                          <select class="form-control select2" id="simple-select2" name="stage_id">
                             <optgroup label="{{__('Select Stage')}}">
                               @foreach ($stages as $stage)
                                <option value="{{$stage->id}}">{{$stage->name}}</option>
@@ -168,7 +168,7 @@
                         </div> 
                          <div class="form-group col-md-6">
                           <label for="simple-select2">{{__('Stage')}}</label>
-                          <select class="form-control"  id="select_edit" name="statge_id">
+                          <select class="form-control"  id="select_edit" name="stage_id">
                             <option disabled selected>select stage</option>
                               @foreach ($stages as $stage)
                                <option value="{{$stage->id}}">{{$stage->name}}</option>
@@ -204,7 +204,7 @@
                $('#Overlay_edit').css('display','block')
                $('#name_input').val($(this).data('name'))
                $('#notice_input').val($(this).data('notice'))
-               $('#select_edit').val($(this).data('statge_id'))
+               $('#select_edit').val($(this).data('stage_id'))
                $('#form_edit').attr('action', $(this).data('url'));               
             })
             //close edit

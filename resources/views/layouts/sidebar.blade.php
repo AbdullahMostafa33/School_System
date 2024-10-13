@@ -51,11 +51,11 @@
               </a>
               <ul class="collapse list-unstyled pl-4 w-100" id="ui-elements">
                 <li class="nav-item">
-                  <a class="nav-link pl-3" href="{{route('statge.index')}}"><span class="ml-1 item-text">manage stage</span></a>
+                  <a class="nav-link pl-3" href="{{route('stage.index')}}"><span class="ml-1 item-text">manage stage</span></a>
                 </li>
-                @foreach ($stages as $statge)
+                @foreach ($stages as $stage)
                 <li class="nav-item">
-                  <a class="nav-link pl-3" href="{{route('statge.index')}}"><span class="ml-1 item-text">{{$statge->name}}</span></a>
+                  <a class="nav-link pl-3" href="{{route('stage.index')}}"><span class="ml-1 item-text">{{$stage->name}}</span></a>
                 </li>
                 @endforeach             
               </ul>

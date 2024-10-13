@@ -76,7 +76,7 @@
                             <td>{{++$i}}</td>
                             <td>{{$classroom->name}}</td>
                             <td>{{$classroom->grade->name}}</td>
-                            <td>{{$classroom->grade->statge->name}}</td>
+                            <td>{{$classroom->grade->stage->name}}</td>
                             @if ($classroom->status)
                                <td><span class="badge badge-pill badge-success">{{__("Active")}}</span></td>
                             @else
@@ -86,7 +86,7 @@
                                 <span class="text-muted sr-only">{{__('Action')}}</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$classroom->name}}" data-status="{{$classroom->status}}" data-statge_id="{{$classroom->grade->statge->id}}" data-grade_id="{{$classroom->grade_id}}" data-url="{{route('classrooms.update',$classroom->id)}}">{{__('Edit')}}</button>
+                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$classroom->name}}" data-status="{{$classroom->status}}" data-stage_id="{{$classroom->grade->stage->id}}" data-grade_id="{{$classroom->grade_id}}" data-url="{{route('classrooms.update',$classroom->id)}}">{{__('Edit')}}</button>
                                 <form action="{{route('classrooms.destroy',$classroom->id)}}" method="POST">
                                   @csrf
                                   @method('delete')
@@ -180,8 +180,8 @@
                $('#Overlay_add').css('display','block')
                $('#name_input').val($(this).data('name'))
                $('#status_input').val($(this).data('status'))
-               $('#select_stage').val($(this).data('statge_id'))
-               getgrades($(this).data('statge_id'))
+               $('#select_stage').val($(this).data('stage_id'))
+               getgrades($(this).data('stage_id'))
                $('#select_grade').val($(this).data('grade_id'))
                $('#form_manage').attr('action', $(this).data('url')); 
               $('#form_manage').append('<input id="method_put" type="hidden" name="_method" value="PUT">');
@@ -215,7 +215,7 @@
                 $.ajax({
               url:"{{route('grades.get')}}",
               type:'GET',
-              data:{statge_id:select_value},
+              data:{stage_id:select_value},
               success:function(grades){
                 var x=""
                 grades.forEach(grade => {                  

@@ -9,12 +9,12 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 class Grade extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'notice', 'statge_id'];
+    protected $fillable = ['name', 'notice', 'stage_id'];
 
     public static function translate($model){
         $tr = new GoogleTranslate(app()->getLocale());
         $model->name = $tr->translate($model->name);
-        $model->statge->name = $tr->translate($model->statge->name);
+        $model->stage->name = $tr->translate($model->stage->name);
         $model->notice = $tr->translate($model->notice);
 
         return $model;
@@ -34,8 +34,8 @@ class Grade extends Model
         return $models;
     }
 
-    public function statge (){
-        return $this->belongsTo(Statge::class);
+    public function stage (){
+        return $this->belongsTo(Stage::class);
     }
     public function classrooms()
     {

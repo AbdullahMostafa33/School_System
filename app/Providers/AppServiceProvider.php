@@ -2,8 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Classroom;
-use App\Models\Statge;
+use App\Models\Stage;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //share with all views
         view()->composer('layouts.sidebar', function ($view) {
-            $stages = Statge::all();
+            $stages = Stage::all();
            $view->with([
                 'stages'=> $stages,
             ]);

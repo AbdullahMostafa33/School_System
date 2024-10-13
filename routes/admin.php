@@ -2,14 +2,14 @@
 
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GradeController;
-use App\Http\Controllers\StatgeController;
+use App\Http\Controllers\StageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
     return view('components.sidebar');
 });
-Route::resource('/statge', StatgeController::class);
+Route::resource('/stage', StageController::class);
 Route::get('/grades/get', [GradeController::class, 'getGrades'])->name('grades.get');
 Route::resource('/grades', GradeController::class);
 Route::get('/classrooms/filter', [ClassroomController::class, 'filterclasses'])->name('classrooms.filter');

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Statge;
+use App\Models\Stage;
 use Illuminate\Http\Request;
 
-class StatgeController extends Controller
+class StageController extends Controller
 {
     
     public function index()
     {
-        $statges=Statge::all();
-        return view('admin.statge',compact('statges'));
+        $stages=Stage::all();
+        return view('admin.stage',compact('stages'));
     }
 
     
@@ -21,7 +21,7 @@ class StatgeController extends Controller
            'name'=>'required',
         ]);
 
-        Statge::create($request->all());
+        Stage::create($request->all());
 
         return back()->with('message', " added  successful!");
         }
@@ -33,18 +33,18 @@ class StatgeController extends Controller
         $validate = $request->validate([
             'name' => 'required',
         ]);
-        $statge = Statge::findOrFail($id);
-        $statge->name=$request->name;
-        $statge->notice = $request->notice;
-        $statge->save();
+        $stage = Stage::findOrFail($id);
+        $stage->name=$request->name;
+        $stage->notice = $request->notice;
+        $stage->save();
         return back()->with('message', ' update  successful!');
     }
 
     public function destroy($id)
     {
 
-        $statge=Statge::findOrFail($id);
-        $statge->delete();
+        $stage=Stage::findOrFail($id);
+        $stage->delete();
         return back()->with('message', 'تم الحذف');
     }
 }

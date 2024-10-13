@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
-use App\Models\Statge;
+use App\Models\Stage;
 use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
@@ -11,12 +11,12 @@ class ClassroomController extends Controller
 
     public function index(Request $request)
     {
-        $stages = Statge::all();
+        $stages = Stage::all();
         if ($request->filter) {
             $filter_value = $request->filter;
             $classrooms = Classroom::where('name', 'like', '%' . $request->search . '%')
                 ->whereHas('grade', function ($query) use ($filter_value) {
-                    $query->where('statge_id', $filter_value);
+                    $query->where('stage_id', $filter_value);
                 })->get();
         }
        else if ($request->search) {
@@ -65,13 +65,5 @@ class ClassroomController extends Controller
         return back()->with('message', 'تم الحذف');
     }
 
-    // get grade of same stage  for ajax
-    public function filterclasses(Request $request)
-    {
-        $filter_value = $request->filter;
-        $classrooms = Classroom::whereHas('grade', function ($query) use ($filter_value) {
-            $query->where('statge_id', $filter_value);
-        })->get();
-        return $classrooms;
-    }
+    
 }

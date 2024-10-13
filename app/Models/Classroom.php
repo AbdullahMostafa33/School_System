@@ -16,7 +16,7 @@ class Classroom extends Model
         $tr = new GoogleTranslate(app()->getLocale());
         $model->name = $tr->translate($model->name);
         $model->grade->name = $tr->translate($model->grade->name);
-        $model->grade->statge->name = $tr->translate($model->grade->statge->name);
+        $model->grade->stage->name = $tr->translate($model->grade->stage->name);
         return $model;
     }
 

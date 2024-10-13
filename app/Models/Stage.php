@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
-class Statge extends Model
+class Stage extends Model
 {
     use HasFactory;
     protected $fillable=['name', 'notice'];

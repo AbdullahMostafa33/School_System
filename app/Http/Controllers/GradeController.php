@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grade;
-use App\Models\Statge;
+use App\Models\Stage;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
@@ -12,7 +12,7 @@ class GradeController extends Controller
     public function index()
     {
         $grades=Grade::all();
-        $stages=Statge::all();       
+        $stages=Stage::all();       
         return view('admin.grades',compact('grades' ,'stages',));
     }
 
@@ -20,7 +20,7 @@ class GradeController extends Controller
     {
         $validate = $request->validate([
             'name' => 'required',
-            'statge_id' => 'required',
+            'stage_id' => 'required',
         ]);
 
         Grade::create($request->all());
@@ -33,11 +33,11 @@ class GradeController extends Controller
     public function update(Request $request, string $id)
     {
         $validate = $request->validate([
-            'name' => 'required','statge_id' => 'required',
+            'name' => 'required','stage_id' => 'required',
         ]);
         $grade = Grade::findOrFail($id);
         $grade->name = $request->name;
-        $grade->statge_id = $request->statge_id;
+        $grade->stage_id = $request->stage_id;
         $grade->notice = $request->notice;
         $grade->save();
         return back()->with('message', ' update  successful!');
@@ -54,7 +54,7 @@ class GradeController extends Controller
     // get grade of same stage  for ajax
     public function getGrades(Request $request)
     {
-        $grades = Grade::where('statge_id', $request->statge_id)->get();
+        $grades = Grade::where('stage_id', $request->stage_id)->get();
         return $grades;
     }
 }
