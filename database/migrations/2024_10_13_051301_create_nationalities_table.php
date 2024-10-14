@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('classrooms', function (Blueprint $table) {
-            $table->bigInteger('id');
+        Schema::create('nationalities', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
-            $table->foreignId('grade_id')->constrained()->onDelete('cascade');
-            $table->boolean('status')->default(1);
-            $table->timestamps();
         });
     }
 
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('classrooms');
+        Schema::dropIfExists('nationalities');
     }
 };

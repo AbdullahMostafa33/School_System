@@ -46,7 +46,7 @@
       </nav>
 
 <script>
-  // for select lang
+  for select lang
     $('#language-select').val('{{$_COOKIE['lang']??'en'}}');
     $('#language-select').change(
         function(){

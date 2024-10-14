@@ -65,5 +65,10 @@ class ClassroomController extends Controller
         return back()->with('message', 'تم الحذف');
     }
 
-    
+    // get classroom of same stage  for ajax
+    public function getClassrooms(Request $request)
+    {
+        $classrooms = Classroom::where('grade_id', $request->grade_id)->get();
+        return $classrooms;
+    }
 }
