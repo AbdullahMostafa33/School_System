@@ -75,7 +75,7 @@
            <li class="nav-item w-100">
               <a class="nav-link" href="{{route('parents.index')}}">
                 <i class="fe fe-layers fe-16"></i>
-                <span class="ml-3 item-text">{{__('Parents')}}</span>
+                <span class="ml-3 item-text">{{__('Mangae Parents')}}</span>
               </a>
             </li>          
           </ul>

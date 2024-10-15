@@ -11,24 +11,26 @@ use Illuminate\Support\Facades\DB;
 
 class ParentsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $nationalities = DB::table('nationalities')->select('id', 'name')->get();
-        $stages = Stage::all();
-        return view('admin.parents', compact('nationalities', 'stages'));
+        if($request->search){
+            $parents=Parents::where('email', $request->search)
+                             ->OrWhere('national_id', $request->search)
+                             ->OrWhere('name','like', '%' . $request->search . '%')->get();                     
+        }
+        else $parents=Parents::all();
+        return view('admin.parents.parents', compact('parents'));
     }
 
 
     public function validateStep(Request $request)
-    {
-
-        
+    {        
         // Define validation rules based on the current step
         $rules = [];
 
         if ($request->current_step==0) { // First step (Parent Account)            
             $rules = [
-                'parent_email' => 'required|email',
+                'parent_email' => 'required|email|unique:parents,email',
                 'parent_password' => 'required|min:8',
                 'parent_confirm_password' => 'required|same:parent_password',
             ];
@@ -37,14 +39,14 @@ class ParentsController extends Controller
                 'name_parent' => 'required|string|max:255',
                 'phone_parent' => 'required|numeric',
                 'nationality_id_parent' => 'required|exists:nationalities,id',
-                'national_id_parent' => 'required|digits:14',
+                'national_id_parent' => 'required|digits:14|unique:parents,national_id',
             ];
         } elseif ($request->current_step == 2) {// Third step (Child Information)            
             $rules = [
-                'email_student' => 'required|email',
+                'email_student' => 'required|email|unique:students,email',
                 'name_student' => 'required|string|max:255',
                 'phone_student' => 'required|numeric',
-                'national_id_student' => 'required|digits:14',
+                'national_id_student' => 'required|digits:14|unique:students,national_id',
                 'nationality_id_student' => 'required|exists:nationalities,id',
                 'classroom_id' => 'required|exists:classrooms,id',
             ];
@@ -70,7 +72,9 @@ class ParentsController extends Controller
      */
     public function create()
     {
-       
+        $nationalities = DB::table('nationalities')->select('id', 'name')->get();
+        $stages = Stage::all();
+        return view('admin.parents.Add_parents', compact('nationalities', 'stages'));
     }
 
     /**
@@ -79,14 +83,12 @@ class ParentsController extends Controller
     public function store(Request $request)
     {
         // Create Parent
-        $parent =Parents::updateOrCreate(
-        [
-            'national_id' => $request->national_id_parent, // Search by National ID
-        ],
+        $parent =Parents::create(        
         [
             'email' => $request->parent_email,
             'password' => Hash::make($request->parent_password), 
             'name' => $request->name_parent,
+            'national_id'=>$request->national_id_parent,
             'address' => $request->address_parent,
             'phone' => $request->phone_parent,
             'religion' => $request->religion_parent,
@@ -113,32 +115,59 @@ class ParentsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Parents $parents)
+    public function show(Parents $parent)
     {
-        //
+        $nationalities = DB::table('nationalities')->select('id', 'name')->get();
+        return view('admin.parents.show_parents', compact('parent', 'nationalities'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Parents $parents)
+    public function edit(Parents $parent)
     {
-        //
+        $nationalities = DB::table('nationalities')->select('id', 'name')->get();
+        return view('admin.parents.edit_parents', compact('parent', 'nationalities'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Parents $parents)
+    public function update(Request $request, Parents $parent)
     {
-        //
-    }
+       
+        $request->validate(['parent_email' => 'required|email',
+            'parent_password' => 'required|min:8',
+            'parent_confirm_password' => 'required|same:parent_password',
+            'name_parent' => 'required|string|max:255',
+            'phone_parent' => 'required|numeric',
+            'nationality_id_parent' => 'required|exists:nationalities,id',
+            'national_id_parent' => 'required|digits:14',
+            'address_parent'=> 'required',
+            'religion_parent'=> 'required'
+        ]);
+        $parent->fill([
+            'email' => $request->parent_email,
+            'password' => Hash::make($request->parent_password),
+            'name' => $request->name_parent,
+            'address'=>$request->address_parent,
+            'phone' => $request->phone_parent,
+            'religion'=>$request->religion_parent,
+            'nationality_id' => $request->nationality_id_parent,
+            'national_id' => $request->national_id_parent,
+        ]);
+
+        $parent->save();
+        return back()->with('message', ' update  successful!'); 
+       }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Parents $parents)
+    public function destroy( $id)
     {
-        //
+        $parent = Parents::findOrFail($id);
+        $parent->delete();
+        return back()->with('message', 'تم الحذف');
     }
 }

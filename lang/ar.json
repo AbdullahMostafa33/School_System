@@ -25,6 +25,7 @@
     "Notice": "الملاحظات",
     "Academic Grades": "الصفوف الدراسية",
     "Classrooms": "الفصول الدراسية",
+    "Mangae Parents":"ادارة اولياء الامور",
 
 
         "//////////////////// stage \\\\\\\\\\\\\\\\\\\\": "",
@@ -63,13 +64,15 @@
 
             "//////////////////// parents \\\\\\\\\\\\\\\\\\\\": "",    
     "Parent Email": "ايميل ولي الامر",
+    "National ID": "الرقم القومي",
     "Student Email": "",
     "Student Name": "",
-    "National ID": "",
     "Select Classroom": "",
-    "": "",
-    "": "",
-    "": "",
+
+
+    "Edit Parent Information": "",
+    "Add Parent Information": "",
+    "Show Parent Information": "",
     "": "",
     "": ""
 }
