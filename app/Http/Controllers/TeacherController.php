@@ -41,7 +41,7 @@ class TeacherController extends Controller
                 'password' => 'required|min:8',
                 'name' => 'required|string|max:255',
                 'phone' => 'required|numeric',
-                'nationality_id' => 'required|exists:nationalities,id',
+                'nationality' => 'required',
                 'national_id' => 'required|digits:14|unique:teachers,national_id',
                 'gender'=> 'required',
                 'specialty.*' => 'exists:specialties,id',
@@ -52,7 +52,7 @@ class TeacherController extends Controller
         );
         $teacher->specialties()->attach($request->specialty);
 
-        return back()->with('message', " added  successful!");;
+        return back()->with('message', " added  successful!");
     }
 
     /**
@@ -96,7 +96,7 @@ class TeacherController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|numeric',
             'gender'=> 'required',
-            'nationality_id' => 'required|exists:nationalities,id',
+            'nationality' => 'required',
             'national_id' => 'required|digits:14|unique:teachers,national_id',
             'specialty.*' => 'exists:specialties,id',
         ]);
@@ -108,7 +108,7 @@ class TeacherController extends Controller
             'phone' => $request->phone,
             'gender'=>$request->gender,
             'religion' => $request->religion,
-            'nationality_id' => $request->nationality_id,
+            'nationality' => $request->nationality,
             'national_id' => $request->national_id,
         ]);
 

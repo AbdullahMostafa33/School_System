@@ -38,7 +38,7 @@ class ParentsController extends Controller
             $rules = [
                 'name_parent' => 'required|string|max:255',
                 'phone_parent' => 'required|numeric',
-                'nationality_id_parent' => 'required|exists:nationalities,id',
+                'nationality_parent' => 'required',
                 'national_id_parent' => 'required|digits:14|unique:parents,national_id',
             ];
         } elseif ($request->current_step == 2) {// Third step (Child Information)            
@@ -47,8 +47,10 @@ class ParentsController extends Controller
                 'name_student' => 'required|string|max:255',
                 'phone_student' => 'required|numeric',
                 'national_id_student' => 'required|digits:14|unique:students,national_id',
-                'nationality_id_student' => 'required|exists:nationalities,id',
+                'nationality_student' => 'required',
                 'classroom_id' => 'required|exists:classrooms,id',
+                'gender' => 'required',
+                'student_password' => 'required',
             ];
         }
 
@@ -92,7 +94,7 @@ class ParentsController extends Controller
             'address' => $request->address_parent,
             'phone' => $request->phone_parent,
             'religion' => $request->religion_parent,
-            'nationality_id' => $request->nationality_id_parent,
+            'nationality' => $request->nationality_parent,            
         ]);
     
         // Create Student
@@ -103,9 +105,11 @@ class ParentsController extends Controller
             'address' => $request->address_student,
             'phone' => $request->phone_student, 
             'religion' => $request->religion_student,
-            'nationality_id' => $request->nationality_id_student,
+            'nationality' => $request->nationality_student,
             'parent_id' => $parent->id, 
             'classroom_id' => $request->classroom_id,
+            'gender' => $request->gender,
+            'password'=>Hash::make($request->student_password),
         ]);
 
       return back()->with('message', " added  successful!");;
@@ -141,7 +145,7 @@ class ParentsController extends Controller
             'parent_confirm_password' => 'required|same:parent_password',
             'name_parent' => 'required|string|max:255',
             'phone_parent' => 'required|numeric',
-            'nationality_id_parent' => 'required|exists:nationalities,id',
+            'nationality_parent' => 'required',
             'national_id_parent' => 'required|digits:14',
             'address_parent'=> 'required',
             'religion_parent'=> 'required'
@@ -153,7 +157,7 @@ class ParentsController extends Controller
             'address'=>$request->address_parent,
             'phone' => $request->phone_parent,
             'religion'=>$request->religion_parent,
-            'nationality_id' => $request->nationality_id_parent,
+            'nationality' => $request->nationality_parent,
             'national_id' => $request->national_id_parent,
         ]);
 

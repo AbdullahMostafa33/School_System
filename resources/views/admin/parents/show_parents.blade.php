@@ -56,10 +56,7 @@
                                              <div class="form-group col-md-6">
                                                  <label>Nationality *</label>
                                                  <select class="form-control required" disabled>
-                                                     <option disabled selected>Select Nationality</option>
-                                                     @foreach($nationalities as $nationality)
-                                                         <option value="{{ $nationality->id }}" {{$nationality->id==$parent->nationality_id?'selected':''}}>{{ $nationality->name }}</option>
-                                                     @endforeach
+                                                     <option value="">{{$parent->nationality}}</option>                                                     
                                                  </select>
                                              </div>
                                              <div class="form-group col-md-6">

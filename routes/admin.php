@@ -4,6 +4,7 @@ use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ParentsController;
 use App\Http\Controllers\StageController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::resource('/parents', ParentsController::class);
 
 Route::resource('/teachers', TeacherController::class);
 
+Route::resource('/students', StudentController::class);
 
 
 

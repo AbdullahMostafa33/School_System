@@ -25,7 +25,9 @@
     "Notice": "الملاحظات",
     "Academic Grades": "الصفوف الدراسية",
     "Classrooms": "الفصول الدراسية",
-    "Mangae Parents":"ادارة اولياء الامور",
+    "Manage Parents":"ادارة اولياء الامور",
+    "Manage Teachers": "ادراة المعلمين",
+    "Manage Students":"ادراة الطلاب",
 
 
         "//////////////////// stage \\\\\\\\\\\\\\\\\\\\": "",
@@ -74,5 +76,15 @@
     "Add Parent Information": "",
     "Show Parent Information": "",
     "Select Specialty": "",
-    "Add Teacher": ""
+    "Add Teacher": "",
+    "Gender":"",
+    "Academic students": "",
+    "Filter BY": "",
+    "Add Student": "",
+    "Parent National ID": "",
+    "": "",
+    "": "",
+    "": "",
+    "": ""
+
 }

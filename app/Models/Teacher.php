@@ -16,7 +16,7 @@ class Teacher extends Model
         'phone',
         'gender',
         'religion',
-        'nationality_id',
+        'nationality',
         'national_id',
         'join_at',
     ];

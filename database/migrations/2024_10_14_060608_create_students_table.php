@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('name');
-            $table->string('national_id');
+            $table->text('password');
+            $table->boolean('gender');
+            $table->string('national_id')->unique();
             $table->string('phone', 20);
             $table->string('address')->nullable();
             $table->smallInteger('religion')->nullable();
-            $table->foreignId('nationality_id')->constrained()->onDelete('cascade');
+            $table->string('nationality');
             $table->foreignId('parent_id')->constrained()->onDelete('cascade');
             $table->foreignId('classroom_id')->constrained()->onDelete('cascade');
             $table->timestamps();

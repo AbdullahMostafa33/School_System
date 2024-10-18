@@ -58,11 +58,11 @@
                                          </div>                                     
                                          <div class="form-row">
                                              <div class="form-group col-md-6">
-                                                 <label for="nationality_id">Nationality *</label>
-                                                 <select name="nationality_id" class="form-control required" required>
+                                                 <label for="nationality">Nationality *</label>
+                                                 <select name="nationality" class="form-control required" required>
                                                      <option  disabled selected>Select Nationality</option>
                                                      @foreach($nationalities as $nationality)
-                                                         <option value="{{ $nationality->id }}" {{$nationality->id==$teacher->nationality_id?'selected':''}}>{{ $nationality->name }}</option>
+                                                         <option value="{{ $nationality->name }}" {{$nationality->name==$teacher->nationality?'selected':''}}>{{ $nationality->name }}</option>
                                                      @endforeach
                                                  </select>
                                              </div>

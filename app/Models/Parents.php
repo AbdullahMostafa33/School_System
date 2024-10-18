@@ -15,7 +15,7 @@ class Parents extends Model
         'address',
         'phone',
         'religion',
-        'nationality_id',
+        'nationality',
         'national_id',
     ];
 

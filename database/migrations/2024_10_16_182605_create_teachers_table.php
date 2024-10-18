@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone', 20);
             $table->smallInteger('religion')->nullable();
             $table->boolean('gender');
-            $table->foreignId('nationality_id')->constrained()->onDelete('cascade');
+            $table->string('nationality');
             $table->string('national_id'); 
             $table->date('join_at');           
             $table->timestamps();

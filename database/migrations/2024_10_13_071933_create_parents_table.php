@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone',20);
             $table->smallInteger('religion')->nullable();
-            $table->foreignId('nationality_id')->constrained()->onDelete('cascade');
-            $table->string('national_id');
+            $table->string('nationality');
+            $table->string('national_id')->unique();
             $table->timestamps();
         });
     }

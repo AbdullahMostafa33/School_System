@@ -75,13 +75,19 @@
            <li class="nav-item w-100">
               <a class="nav-link" href="{{route('parents.index')}}">
                 <i class="fe fe-layers fe-16"></i>
-                <span class="ml-3 item-text">{{__('Mangae Parents')}}</span>
+                <span class="ml-3 item-text">{{__('Manage Parents')}}</span>
               </a>
             </li>
             <li class="nav-item w-100">
               <a class="nav-link" href="{{route('teachers.index')}}">
                 <i class="fe fe-layers fe-16"></i>
-                <span class="ml-3 item-text">{{__('Mangae Teachers')}}</span>
+                <span class="ml-3 item-text">{{__('Manage Teachers')}}</span>
+              </a>
+            </li> 
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{{route('students.index')}}">
+                <i class="fe fe-layers fe-16"></i>
+                <span class="ml-3 item-text">{{__('Manage Students')}}</span>
               </a>
             </li>          
           </ul>

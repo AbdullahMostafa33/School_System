@@ -9,84 +9,88 @@
                 <div class="col-12">
                     <div class="card my-4">
                         <div class="card-header">
-                            <strong>{{__("Show Teacher Information")}}</strong>
+                            <strong>{{__("Show Student Information")}}</strong>
                         </div>
                         <div class="card-body">
                             <form>                               
                                 <div>
-                                    <!-- Teacher Account Section -->
-                                    <h3>Teacher Account</h3>
+                                    <!-- Student Account Section -->
+                                    <h3>Student Account</h3>
                                     <section>
                                         <div class="form-group">
-                                            <label>{{__('Teacher Email')}} *</label>
-                                            <input name="email" type="text" class="form-control required" value="{{$teacher->email}}" readonly>
+                                            <label>{{__('Student Email')}} *</label>
+                                            <input name="email" type="text" class="form-control required" value="{{$student->email}}" readonly>
                                         </div>                                                                                                                  
                                     </section>
 
-                                    <!-- Teacher Profile Section -->
-                                    <h3>Teacher Profile</h3>
+                                    <!-- Student Profile Section -->
+                                    <h3>Student Profile</h3>
                                     <section>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="name">Name *</label>
-                                                <input name="name" type="text" class="form-control required" id="name" value="{{$teacher->name}}" readonly required>
+                                                <input name="name" type="text" class="form-control required" id="name" value="{{$student->name}}" readonly required>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="address">Address</label>
-                                                <input name="address" type="text" class="form-control" value="{{$teacher->address}}" readonly>
+                                                <input name="address" type="text" class="form-control" value="{{$student->address}}" readonly>
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="phone">Phone *</label>
-                                                <input name="phone" type="text" class="form-control required" value="{{$teacher->phone}}" readonly required>
+                                                <input name="phone" type="text" class="form-control required" value="{{$student->phone}}" readonly required>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="religion">Religion</label>
                                                 <select name="religion" class="form-control" id="religion" disabled>
                                                     <option disabled selected>{{__('Select Religion')}}</option>
-                                                    <option value="1" {{$teacher->religion==1?'selected':''}}>Muslim</option>
-                                                    <option value="2" {{$teacher->religion==2?'selected':''}}>Christian</option>                                                     
+                                                    <option value="1" {{$student->religion==1?'selected':''}}>Muslim</option>
+                                                    <option value="2" {{$student->religion==2?'selected':''}}>Christian</option>                                                     
                                                 </select>
                                             </div>
                                         </div>                                     
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="nationality">Nationality *</label>
-                                                <select name="nationality" class="form-control required"  disabled>
-                                                    <option value="">{{$teacher->nationality}}</option>
+                                                <select name="nationality" class="form-control required" required disabled>
+                                                    <option  selected>{{$student->nationality}}</option>                                                    
                                                 </select>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="national_id">National ID *</label>
-                                                <input name="national_id" type="text" class="form-control required" value="{{$teacher->national_id}}" readonly required>
+                                                <input name="national_id" type="text" class="form-control required" value="{{$student->national_id}}" readonly required>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="gender">Gender</label>
                                                 <select name="gender" class="form-control" disabled>
                                                     <option disabled selected>{{__('Select Gender')}}</option>
-                                                    <option value="0" {{$teacher->gender==0?'selected':''}}>Male</option>
-                                                    <option value="1" {{$teacher->gender==1?'selected':''}}>Female</option>                                                     
+                                                    <option value="0" {{$student->gender==0?'selected':''}}>Male</option>
+                                                    <option value="1" {{$student->gender==1?'selected':''}}>Female</option>                                                     
+                                                </select>
+                                            </div> 
+                                            <div class="form-group col-md-6">
+                                                <label for="classroom_id"> {{__('Stage')}} *</label>
+                                                <select  class="form-control required" id="select_stage" disabled>
+                                                    <option  selected>{{$student->classroom->grade->stage->name}}</option>
+                                                   
                                                 </select>
                                             </div>
-                                            <div class="col-md-6 mb-3">
-                                                <label for="date-input1">Date Join *</label>
-                                                <div class="input-group">
-                                                    <input type="date" class="form-control required"name="join_at" value="{{$teacher->join_at->format('Y-m-d')}}" aria-describedby="button-addon2" readonly required>                                    
-                                                </div>
-                                            </div>                                             
-                                        </div> 
-                                        <div class="form-row">
-                                            <label for="example-multiselect">{{__("Select Specialty")}}</label>
-                                            <select id="example-multiselect" name="specialty[]" class="form-control" multiple disabled>
-                                                @foreach($specialties as $specialty)
-                                                @if (in_array($specialty->id, $teacher_specialty))
-                                                    <option selected>{{ $specialty->name }}</option>                                                    
-                                                @endif
-                                                @endforeach
-                                            </select>
-                                        </div>                                 
-                                        
+                                            <div class="form-group col-md-6">
+                                                <label for="classroom_id">{{__('Grade')}} *</label>
+                                                <select  class="form-control required" id="select_grade" disabled>
+                                                    <option  selected>{{$student->classroom->grade->name}}</option>                                                    
+                                                </select>
+                                            </div>
+                                             <div class="form-group col-md-6">
+                                                <label for="classroom_id">{{__('Classroom')}} *</label>
+                                                <select name="classroom_id" class="form-control required" id="select_classroom" disabled>
+                                                    <option  selected>{{$student->classroom->name}}</option>
+                                                    
+                                                </select>
+                                            </div>                                                                                    
+                                        </div>                                        
+                                       
                                         <div class="help-text text-muted">(*) Mandatory fields 
                                             <div class="error_show">
                                                 @if ($errors->any())

@@ -10,12 +10,14 @@ class Student extends Model
     use HasFactory;
     protected $fillable = [
         'email',
+        'password',
         'name',
+        'gender',
         'national_id',
         'address',
         'phone',
         'religion',
-        'nationality_id',
+        'nationality',
         'parent_id',
         'classroom_id',
     ];
@@ -23,6 +25,10 @@ class Student extends Model
     public function parent()
     {
         return $this->belongsTo(Parents::class, 'parent_id');
+    }
+
+    public function classroom()  {
+        return $this->belongsTo(Classroom::class,'classroom_id');
     }
 
 }

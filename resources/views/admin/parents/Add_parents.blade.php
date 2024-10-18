@@ -63,11 +63,11 @@
                                      
                                          <div class="form-row">
                                              <div class="form-group col-md-6">
-                                                 <label for="nationality_id">Nationality *</label>
-                                                 <select name="nationality_id_parent" class="form-control required" id="nationality_id" required>
+                                                 <label for="nationality">Nationality *</label>
+                                                 <select name="nationality_parent" class="form-control required" id="nationality" required>
                                                      <option  disabled selected>Select Nationality</option>
                                                      @foreach($nationalities as $nationality)
-                                                         <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
+                                                         <option value="{{ $nationality->name }}">{{ $nationality->name }}</option>
                                                      @endforeach
                                                  </select>
                                              </div>
@@ -98,22 +98,26 @@
                                                 <label for="national_id">{{__('National ID')}} *</label>
                                                 <input name="national_id_student" type="text" class="form-control required" id="national_id" required>
                                             </div> 
+                                            <div class="form-group col-md-6">
+                                             <label for="password">{{__('Password')}} *</label>
+                                             <input id="password" name="student_password" type="password" class="form-control required">
+                                            </div> 
                                              <div class="form-group col-md-6">
                                                  <label for="address">Address</label>
                                                  <input name="address_student" type="text" class="form-control" id="address">
-                                             </div>                                        
-                                        </div>
-                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
+                                             </div>     
+                                             <div class="form-group col-md-6">
                                                  <label for="phone">Phone *</label>
                                                  <input name="phone_student" type="text" class="form-control required" id="phone" required>
-                                             </div>
+                                             </div>                                   
+                                        </div>
+                                         <div class="form-row">
                                              <div class="form-group col-md-6">
-                                                 <label for="nationality_id">Nationality *</label>
-                                                 <select name="nationality_id_student" class="form-control required" id="nationality_id" required>
+                                                 <label for="nationality">Nationality *</label>
+                                                 <select name="nationality_student" class="form-control required" id="nationality" required>
                                                      <option  disabled selected>Select Nationality</option>
                                                      @foreach($nationalities as $nationality)
-                                                         <option value="{{ $nationality->id }}">{{ $nationality->name }}</option>
+                                                         <option value="{{ $nationality->name }}">{{ $nationality->name }}</option>
                                                      @endforeach
                                                  </select>
                                              </div>
@@ -122,8 +126,15 @@
                                                  <select name="religion_student" class="form-control" id="religion">
                                                      <option  disabled selected>Select Religion</option>
                                                      <option value="1">Muslim</option>
-                                                     <option value="2">Christian</option>
-                                                     
+                                                     <option value="2">Christian</option>                                                     
+                                                 </select>
+                                             </div>
+                                             <div class="form-group col-md-6">
+                                                 <label for="gender">Gender</label>
+                                                 <select name="gender" class="form-control" >
+                                                     <option  disabled selected>{{__('Select Gender')}}</option>
+                                                     <option value="0" >Male</option>
+                                                     <option value="1" >Female</option>                                                     
                                                  </select>
                                              </div>
                                          </div>
