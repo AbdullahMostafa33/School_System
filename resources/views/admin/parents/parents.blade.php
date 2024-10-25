@@ -62,8 +62,8 @@
                           <tr>
                             <td>
                               <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="4574">
-                                <label class="custom-control-label" for="4574"></label>
+                                <input type="checkbox" class="custom-control-input selected-checkbox" id="{{$parent->id}}" value="{{$parent->id}}" name="parents_selected[]" >
+                                <label class="custom-control-label" for="{{$parent->id}}"></label>
                               </div>
                             </td>
                             <td>{{++$i}}</td>

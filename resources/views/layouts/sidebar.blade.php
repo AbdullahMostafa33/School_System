@@ -83,13 +83,24 @@
                 <i class="fe fe-layers fe-16"></i>
                 <span class="ml-3 item-text">{{__('Manage Teachers')}}</span>
               </a>
-            </li> 
-            <li class="nav-item w-100">
-              <a class="nav-link" href="{{route('students.index')}}">
-                <i class="fe fe-layers fe-16"></i>
-                <span class="ml-3 item-text">{{__('Manage Students')}}</span>
+            </li>            
+            <li class="nav-item dropdown">
+              <a href="#student_elment" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">{{__('Academic Students')}}</span>
               </a>
-            </li>          
+              <ul class="collapse list-unstyled pl-4 w-100" id="student_elment">
+                <li class="nav-item">
+                  <a class="nav-link pl-3" href="{{route('students.index')}}"><span class="ml-1 item-text">{{__("Manage Students")}}</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link pl-3" href="{{route('students.move')}}"><span class="ml-1 item-text">{{__("Move Students")}}</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link pl-3" href="{{route('students.graduates.show')}}"><span class="ml-1 item-text">{{__("Graduated Students")}}</span></a>
+                </li>                            
+              </ul>
+            </li>         
           </ul>
           <div class="btn-box w-100 mt-4 mb-1">
             <a href="https://themeforest.net/item/tinydash-bootstrap-html-admin-dashboard-template/27511269" target="_blank" class="btn mb-2 btn-primary btn-lg btn-block">

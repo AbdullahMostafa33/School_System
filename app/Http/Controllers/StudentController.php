@@ -32,9 +32,9 @@ class StudentController extends Controller
                 $query->where('stage_id',$filter_value);
             });
         }
-        $students=$query->get();      
+        $students=$query->paginate(100);      
         }
-        else  $students=Student::all();
+        else  $students=Student::paginate(100);
         $stages=Stage::all();
         $grades = Grade::with('stage')->get();
         $classrooms=Classroom::with('grade')->get();
@@ -142,7 +142,79 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        $student->delete();
+        $student->forceDelete();
         return back()->with('message', 'delete successful!');
+    }
+
+    public function showMove(Request $request)
+    {
+    $students=[];
+    if (!empty($request->all())){ //$request->all() return request parameter name
+       $query=Student::where('name','like','%'.$request->search.'%');
+       if($request->filter_classroom) $query->where('classroom_id', $request->filter_classroom);
+       elseif ($request->filter_grade){
+           $grade_value= $request->filter_grade;
+           $query->whereHas('classroom',function ($query)use($grade_value){
+             $query->where('grade_id',$grade_value);
+          });
+       }
+       elseif($request->filter_stage){
+        $stage_value= $request->filter_stage;
+        $query->whereHas('classroom.grade',function($query)use($stage_value){
+            $query->where('stage_id',$stage_value);
+        });
+       }
+
+        $students=$query->get();
+    }
+        $stages = Stage::all();      
+
+        return view('admin.students.move', compact('students', 'stages' ));
+    }
+
+
+    public function move(Request $request){  
+                
+        $request->validate([
+            'move_stage' => 'required|exists:stages,id',
+            'move_grade' => 'required|exists:grades,id',
+            'move_classroom' => 'required|exists:classrooms,id',
+            'students_selected' => 'required|array|exists:students,id'
+        ]);       
+        Student::whereIn('id', $request->students_selected)
+        ->update(['classroom_id' => $request->move_classroom]);
+        return back()->with('message','Move Success!');            
+    }
+
+    public function delete_selection(Request $request)  {
+       $request->validate( ['students_selected'=>'required|array']  );
+       Student::whereIn('id',$request->students_selected)->forceDelete();
+       return back()->with('message','Delete Success!');      
+    }
+
+    public function show_graduates(Request $request){
+        if($request->search){
+            $students = Student::onlyTrashed()->where('name','like','%'. $request->search.'%')
+             ->orWhere('national_id', $request->search)->paginate(100);
+        }
+        elseif($request->graduate_year) $students = Student::onlyTrashed()->whereYear('deleted_at', $request->graduate_year)->paginate(100);
+        else  $students=Student::onlyTrashed()->paginate(100);
+        return view('admin.students.graduates', compact('students'));
+    }
+
+    public function graduate_students(Request $request)
+    {
+         $request->validate(['students_selected'=>'required|array']);
+         Student::whereIn('id',$request->students_selected)->delete();
+         return back()->with('message', 'Graduate Success!');
+    }
+
+    public function restore_student($id , Request $request) {       
+       if($id=='restore_selection'){
+         $request->validate(['students_selected' => 'required|array']);
+         Student::withTrashed()->whereIn('id', $request->students_selected)->restore();
+       }
+       else Student::withTrashed()->find($id)->restore();
+       return back()->with('message', 'Restore Success!');
     }
 }

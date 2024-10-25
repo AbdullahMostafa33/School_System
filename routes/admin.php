@@ -22,7 +22,12 @@ Route::post('/parents/validate-step', [ParentsController::class, 'validateStep']
 Route::resource('/parents', ParentsController::class);
 
 Route::resource('/teachers', TeacherController::class);
-
+Route::get('/students/move',[StudentController::class, 'showMove'])->name('students.move');
+Route::post('/students/move', [StudentController::class, 'move'])->name('students.move');
+Route::get('/students/selection/delete', [StudentController::class, 'delete_selection'])->name('students.Selection.delete');
+Route::get('/students/graduates', [StudentController::class, 'graduate_students'])->name('students.graduates');
+Route::get('/students/graduates/show', [StudentController::class, 'show_graduates'])->name('students.graduates.show');
+Route::post('/students/{id}/restore', [StudentController::class, 'restore_student'])->name('students.restore');
 Route::resource('/students', StudentController::class);
 
 
