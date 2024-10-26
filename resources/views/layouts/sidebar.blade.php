@@ -98,8 +98,14 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link pl-3" href="{{route('students.graduates.show')}}"><span class="ml-1 item-text">{{__("Graduated Students")}}</span></a>
-                </li>                            
+                </li>                                          
               </ul>
+              <li class="nav-item w-100">
+              <a class="nav-link" href="{{route('fees.index')}}">
+                <i class="fe fe-layers fe-16"></i>
+                <span class="ml-3 item-text">{{__('Manage Fees')}}</span>
+              </a>
+            </li>  
             </li>         
           </ul>
           <div class="btn-box w-100 mt-4 mb-1">

@@ -5,28 +5,28 @@
         @include('layouts.sidebar')
          @include('layouts.sidebar')
          @include('components.confirmation-modal', [
-         'modalId' => 'restore_model',
+         'modalId' => 'remove_model',
          'title' => __('Confirm restore'),
-         'message' => __('Are you sure you want to restore the selected students?')
+         'message' => __('Are you sure you want to remove the selected fees')
         ])
     
       <main role="main" class="main-content">
         <div class="row">
                 <!-- Striped rows -->
                 <div class="col-md-12 my-4">
-                  <h2 class="h4 mb-1">{{__('Graduated students')}}</h2>
+                  <h2 class="h4 mb-1">{{__('Academic fees')}}</h2>
                   <div class="card shadow">
                     <div class="card-body">
                       <div class="toolbar row mb-3">
                         <div class="col">
-                          <form action="{{route('students.graduates.show')}}" class="form-inline">
+                          <form action="{{route('fees.index')}}" class="form-inline">
                             <div class="form-row">
                               <div class="form-group col-auto">
                                 <label for="search" class="sr-only">{{__('Search')}}</label>
                                 <input type="text" class="form-control" name="search"  placeholder="{{__('Search')}}">
                               </div>                              
                               <div class="form-group col-auto ml-3">  
-                                <input type="number"class="custom-select my-1 mr-sm-2" min="2000" name="graduate_year" max="2050" placeholder="{{__('Year')}}">                                                      
+                                <input type="number"class="custom-select my-1 mr-sm-2" min="2000" name="year_filter" max="2050" placeholder="{{__('Year')}}">                                                      
                               </div>                              
                             <div class="form-group col-auto ml-3">                                
                                 <button class="btn btn-secondary">{{__('Filter')}}</button>
@@ -36,10 +36,11 @@
                         </div>
                         <div class="col ml-auto">
                           <div class="dropdown float-right">
+                            <a class="btn btn-primary float-right ml-3"  href="{{route('fees.create')}}">{{__('Add Fees')}} +</a>                            
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{__('Action')}} </button>
                             <div class="dropdown-menu" aria-labelledby="actionMenuButton">
-                              <button class="dropdown-item" onclick="exportTableToExcel('myTable', 'students_data', [0, 11])">{{__('Export to Excel')}}</button>
-                              <button class="dropdown-item" onclick="submit_form_delete()">{{__('Restore Selection')}}</button>
+                              <button class="dropdown-item" onclick="exportTableToExcel('myTable', 'students_data', [0, 8])">{{__('Export to Excel')}}</button>
+                              <button class="dropdown-item" onclick="submit_form_delete()">{{__('Delete Selection')}}</button>
                             </div>
                           </div>
                         </div>
@@ -56,7 +57,7 @@
                        @endif  
                       <!-- table -->
 
-                     <form action="{{route('students.restore','restore_selection')}}" method="POST" id="form_restore_selection">
+                     <form action="{{route('fees.delelte.selection')}}" method="POST" id="form_delete_selection">
                         @csrf  
                       <table id="myTable" class="table table-bordered">
                         <thead>
@@ -69,44 +70,41 @@
                             </th>
                             <th>{{__('ID')}}</th>
                             <th>{{__('Name')}}</th>
-                            <th>{{__('National ID')}}</th>
+                            <th>{{__('Cost')}}</th>
                             <th>{{__('Stage')}}</th>
                             <th>{{__('Grade')}}</th>
-                            <th>{{__('Classroom')}}</th>
-                            <th>{{__('Address')}}</th>
-                            <th>{{__('Email')}}</th>
-                            <th>{{__('Phone')}}</th> 
-                            <th>{{__('Graduation Year')}}</th> 
+                            <th>{{__('Notes')}}</th>
+                            <th>{{__('Year')}}</th>                            
                             <th>{{__('Action')}} <form action=""></form></th>
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($students as $i=>$student)                                                     
+                          @foreach ($fees as $i=>$fee)                                                     
                           <tr>
                             <td>
                               <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input selected-checkbox" id="{{$student->id}}" value="{{$student->id}}" name="students_selected[]" >
-                                <label class="custom-control-label" for="{{$student->id}}"></label>
+                                <input type="checkbox" class="custom-control-input selected-checkbox" id="{{$fee->id}}" value="{{$fee->id}}" name="fees_selected[]" >
+                                <label class="custom-control-label" for="{{$fee->id}}"></label>
                               </div>
                             </td>
                             <td>{{++$i}}</td>
-                            <td>{{$student->name}}</td>
-                            <td>{{$student->national_id}}</td>
-                            <td>{{$student->classroom->grade->stage->name}}</td>
-                            <td>{{$student->classroom->grade->name}}</td>
-                            <td>{{$student->classroom->name}}</td>
-                            <td>{{$student->address}}</td>
-                            <td>{{$student->email}}</td>
-                            <td>{{$student->phone}}</td>                                                      
-                            <td>{{$student->deleted_at->format('Y')}}</td>  
+                            <td>{{$fee->name}}</td>
+                            <td>{{$fee->cost}}</td>
+                            <td>{{($fee->stage_id)?$fee->stage->name:__('All Stage')}}</td>
+                            <td>{{($fee->grade_id)?$fee->grade->name:__('All Grade')}}</td>
+                            <td>{{$fee->notes}}</td>
+                            <td>{{$fee->year}}</td>                                                                               
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">{{__('Action')}}</span>
                               </button>
-                              <div class="dropdown-menu dropdown-menu-right">                               
-                                <form action="{{route('students.restore',$student->id)}}" method="POST" >
-                                  @csrf                                
-                                  <button onclick="showConfirmModal(event, 'restore_model','{{$student->name}}')" class="dropdown-item" >
-                                    {{__('Restore')}}</button>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a href="{{route('fees.show',$fee->id)}}"class="dropdown-item" >{{__('show')}}</a>  
+                                <a href="{{route('fees.edit',$fee->id)}}"class="dropdown-item" >{{__('Edit')}}</a>                               
+                                <form action="{{route('fees.destroy',$fee->id)}}" method="POST" >
+                                  @csrf    
+                                  @method('DELETE')                            
+                                  <button onclick="showConfirmModal(event, 'remove_model','{{$fee->name}}')" class="dropdown-item" style="color: red" >
+                                    {{__('Remove')}}</button>
                                 </form>
                               </div>
                             </td>
@@ -116,8 +114,7 @@
                       </table>
                       
                       </form> 
-                      {{-- paginate --}}
-                      {{ $students->links('components.pagination') }}
+                      
                     </div>         
                   </div>
                 </div> <!-- simple table -->
@@ -133,9 +130,9 @@
 <script>
   
   function submit_form_delete(){
-    showConfirmModal(event, 'restore_model')
+    showConfirmModal(event, 'remove_model')
     $(document).on('click', '[id$="ConfirmButton"]', function() {
-    $('#form_restore_selection').submit();
+    $('#form_delete_selection').submit();
     });
   }
   

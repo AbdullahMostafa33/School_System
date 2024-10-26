@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\FeeController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\ParentsController;
 use App\Http\Controllers\StageController;
@@ -30,6 +31,8 @@ Route::get('/students/graduates/show', [StudentController::class, 'show_graduate
 Route::post('/students/{id}/restore', [StudentController::class, 'restore_student'])->name('students.restore');
 Route::resource('/students', StudentController::class);
 
+Route::post('/fees/delelte_selection', [FeeController::class, 'delelte_selection'])->name('fees.delelte.selection');
+Route::resource('/fees', FeeController::class);
 
 
 // change lang of website

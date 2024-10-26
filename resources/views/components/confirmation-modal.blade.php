@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                {{ $message }}
+                {{ $message }} 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('No')}}</button>
@@ -24,7 +24,7 @@
     function showConfirmModal(event, modalId,message='') {
         event.preventDefault(); // Prevent the form from submitting immediately
         formToSubmit = event.target.closest('form'); // Save the form reference
-        $('.modal-body').append(message)
+        $('.modal-body').append(message+' ?')
         $('#' + modalId).modal('show'); // Show the modal
     }
 
