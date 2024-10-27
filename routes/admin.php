@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\FeeController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ParentsController;
 use App\Http\Controllers\StageController;
 use App\Http\Controllers\StudentController;
@@ -34,6 +35,8 @@ Route::resource('/students', StudentController::class);
 Route::post('/fees/delelte_selection', [FeeController::class, 'delelte_selection'])->name('fees.delelte.selection');
 Route::resource('/fees', FeeController::class);
 
+Route::post('/invoices/delelte_selection', [InvoiceController::class, 'delelte_selection'])->name('invoices.delelte.selection');
+Route::resource('/invoices', InvoiceController::class);
 
 // change lang of website
 Route::get('/lang', function (Request $request) {

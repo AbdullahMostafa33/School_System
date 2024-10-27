@@ -119,6 +119,9 @@
                               <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item edit_btn" href="{{route('students.show',$student->id)}}"  >{{__('Show')}}</a>                                
                                 <a class="dropdown-item edit_btn" href="{{route('students.edit',$student->id)}}"  >{{__('Edit')}}</a>
+                                <form action="{{route('invoices.create')}}">
+                                  <button name="id" value="{{$student->id}}"class="dropdown-item edit_btn"> {{__('Create Invoice')}}</button>
+                                </form>
                                 <form action="{{route('students.destroy',$student->id)}}" method="POST">
                                   @csrf
                                   @method('delete')
