@@ -3,12 +3,18 @@
      
         @include('layouts.navbar')
         @include('layouts.sidebar')
+         @include('components.confirmation-modal', [
+         'modalId' => 'remove_model',
+         'title' => __('Confirm Delete'),
+         'message' => __('Are you sure you want to remove the selected specialties')
+        ])
+    
     
       <main role="main" class="main-content">
         <div class="row">
                 <!-- Striped rows -->
                 <div class="col-md-12 my-4">
-                  <h2 class="h4 mb-1">{{__('Academic Classrooms')}}</h2>
+                  <h2 class="h4 mb-1">{{__('Academic Specialties')}}</h2>
                   <div class="card shadow">
                     <div class="card-body">
                       <div class="toolbar row mb-3">
@@ -39,13 +45,12 @@
                             <button class="btn btn-primary float-right ml-3" type="button" id="addWidgetBtn">{{__('Add more')}} +</button>
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="actionMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {{__('Action')}} </button>
                             <div class="dropdown-menu" aria-labelledby="actionMenuButton">
-                              <a class="dropdown-item" href="#">Export</a>
-                              <a class="dropdown-item" href="#">Delete</a>
-                              <a class="dropdown-item" href="#">Something else here</a>
+                              <button class="dropdown-item" onclick="exportTableToExcel('myTable', 'students_data', [0, 5])">{{__('Export to Excel')}}</button>
+                              <button class="dropdown-item" onclick="submit_form_delete()">{{__('Delete Selection')}}</button>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div>                     
                       {{-- show errors       --}}
                       @if ($errors->any())
                        <div class="alert alert-danger">
@@ -56,8 +61,11 @@
                           </ul>
                        </div>
                        @endif  
-                      <!-- table -->
-                      <table class="table table-bordered">
+                        <!-- table -->
+                         <form action="{{route('specialties.delete.selection')}}" id="form_delete_selection" method="POST">
+                          @Csrf
+                          @method('DELETE')
+                      <table class="table table-bordered" id="myTable">
                         <thead>
                           <tr role="row">
                             <th>
@@ -67,37 +75,31 @@
                               </div>
                             </th>
                             <th>{{__('ID')}}</th>
-                            <th>{{__('Name')}}</th>
-                            <th>{{__('Grade')}}</th>
-                            <th>{{__('Stage')}}</th>
-                            <th>{{__('Status')}}</th>  
+                            <th>{{__('Name')}}</th>                            
+                            <th>{{__('Stage')}}</th> 
+                            <th>{{__('Grade')}}</th>                          
                             <th>{{__('Action')}}</th>
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($classrooms as $i=>$classroom)                                                     
+                          @foreach ($specialties as $i=>$specialty)                                                     
                           <tr>
                             <td>
                               <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input selected-checkbox" id="{{$classroom->id}}" value="{{$classroom->id}}" name="classrooms_selected[]" >
-                                <label class="custom-control-label" for="{{$classroom->id}}"></label>
+                                <input type="checkbox" class="custom-control-input selected-checkbox" id="{{$specialty->id}}" value="{{$specialty->id}}" name="specialties_selected[]" >
+                                <label class="custom-control-label" for="{{$specialty->id}}"></label>
                               </div>
                             </td>
                             <td>{{++$i}}</td>
-                            <td>{{$classroom->name}}</td>
-                            <td>{{$classroom->grade->name}}</td>
-                            <td>{{$classroom->grade->stage->name}}</td>
-                            @if ($classroom->status)
-                               <td><span class="badge badge-pill badge-success">{{__("Active")}}</span></td>
-                            @else
-                                <td><span class="badge badge-pill badge-danger">{{__("Inactive")}}</span></td>
-                            @endif
+                            <td>{{$specialty->name}}</td>
+                            <td>{{$specialty->stage_id ? $specialty->stage->name : __('All stages')}}</td>
+                            <td>{{$specialty->grade_id ? $specialty->grade->name : __('All grades')}}</td>                              
                             <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="text-muted sr-only">{{__('Action')}}</span>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$classroom->name}}" data-status="{{$classroom->status}}" data-stage_id="{{$classroom->grade->stage->id}}" data-grade_id="{{$classroom->grade_id}}" data-url="{{route('classrooms.update',$classroom->id)}}">{{__('Edit')}}</button>
-                                <form action="{{route('classrooms.destroy',$classroom->id)}}" method="POST">
+                                <button class="dropdown-item edit_btn"   type="button" data-name="{{$specialty->name}}" data-status="{{$specialty->status}}" data-stage_id="{{$specialty->stage_id ?$specialty->stage_id:null}}" data-grade_id="{{$specialty->grade_id ?$specialty->grade_id:null}}" data-url="{{route('specialties.update',$specialty->id)}}">{{__('Edit')}}</button>
+                                <form action="{{route('specialties.destroy',$specialty->id)}}" method="POST">
                                   @csrf
                                   @method('delete')
                                   <button class="dropdown-item"  style="color: red">{{__('Remove')}}</button>
@@ -108,15 +110,8 @@
                            @endforeach
                         </tbody>                                                    
                       </table>
-                      <nav aria-label="Table Paging" class="mb-0 text-muted">
-                        <ul class="pagination justify-content-end mb-0">
-                          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                      </nav>
+                      </form>
+                      
                     </div>
               
               
@@ -131,10 +126,10 @@
            
                  <div class="card shadow mb-4">
                   <div class="card-header">
-                    <strong id="title_form" class="card-title">{{__('Add classroom')}}</strong>
+                    <strong id="title_form" class="card-title">{{__('Add Specialty')}}</strong>
                   </div>
                   <div class="card-body">
-                    <form method="POST" action="{{route('classrooms.store')}}" id="form_manage">
+                    <form method="POST" action="{{route('specialties.store')}}" id="form_manage">
                       @csrf
                      
                       <div class="form-row">
@@ -142,18 +137,13 @@
                           <label>{{__('Name')}}</label>
                           <input type="text" class="form-control" name="name" id="name_input" placeholder="{{__('Enter Name')}}">
                         </div> 
-                        <div class="form-group col-md-6">
-                          <label for="simple-select2">{{__('Status')}}</label>
-                          <select class="form-control " id="status_input" name="status">
-                            <option value="null option" disabled selected>{{__('Select Status')}}</option>                                                     
-                               <option value="1">{{__('Activie')}}</option>
-                               <option value="0">{{__('Inactive')}}</option>                                                                              
-                          </select>
+                        <div class="form-group col-md-6">                          
                         </div> <!-- form-group -->
                         <div class="form-group col-md-6">
                           <label>{{__('Stage')}}</label>
-                          <select class="form-control " id="select_stage" >
+                          <select class="form-control " id="select_stage" name="stage_id" >
                             <option value="null option" disabled selected>{{__('Select Stage')}}</option>
+                            <option value="all">{{__('All stages')}}</option>
                               @foreach ($stages as $stage)
                                <option value="{{$stage->id}}">{{$stage->name}}</option>
                               @endforeach  
@@ -166,8 +156,7 @@
                           </select>
                         </div> <!-- form-group -->
                       <div class="form-group ">                                             
-                      </div>                       
-                       
+                      </div>                              
                       </div>                      
                       <button type="submit" id="btn_form" class="btn btn-primary">{{__('Submit')}}</button>
                       <span  id="close_btn_add" class="btn btn-primary" style="background-color: grey">{{__('Close')}}</span>
@@ -190,9 +179,13 @@
                $('#Overlay_add').css('display','block')
                $('#name_input').val($(this).data('name'))
                $('#status_input').val($(this).data('status'))
-               $('#select_stage').val($(this).data('stage_id'))
-               getgrades($(this).data('stage_id'))
-               $('#select_grade').val($(this).data('grade_id'))
+               stage=$(this).data('stage_id')
+               stage==''? stage='all' : stage=stage
+               $('#select_stage').val(stage)
+               getgrades(stage)
+               grade=$(this).data('grade_id')
+               grade==null ? grade='all' : grade=grade
+               $('#select_grade').val(grade)
                $('#form_manage').attr('action', $(this).data('url')); 
               $('#form_manage').append('<input id="method_put" type="hidden" name="_method" value="PUT">');
               $('#btn_form').text('{{__('Update')}}')
@@ -228,6 +221,7 @@
               data:{stage_id:select_value},
               success:function(grades){
                 var x=""
+                x+=`<option value="all">{{__('All Grades')}}</option>`
                 grades.forEach(grade => {                  
                  x+="<option value='"+grade.id+"'>"+grade.name+"</option>";
                 });
@@ -236,7 +230,15 @@
                 $('#select_grade').append(x);
               },
             })
-              }               
+              }   
+              
+  function submit_form_delete(){
+    showConfirmModal(event, 'remove_model')
+    $(document).on('click', '[id$="ConfirmButton"]', function() {
+    $('#form_delete_selection').submit();
+    });
+  }
+  
             
 </script>
 

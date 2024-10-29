@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('specialties', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('stage_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('grade_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

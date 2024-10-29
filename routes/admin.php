@@ -8,6 +8,7 @@ use App\Http\Controllers\ParentsController;
 use App\Http\Controllers\StageController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\SpecialtyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,9 @@ Route::resource('/fees', FeeController::class);
 
 Route::post('/invoices/delelte_selection', [InvoiceController::class, 'delelte_selection'])->name('invoices.delelte.selection');
 Route::resource('/invoices', InvoiceController::class);
+
+Route::delete('/specialties/delete_selection', [SpecialtyController::class, 'delete_selection'])->name('specialties.delete.selection');
+Route::resource('/specialties', SpecialtyController::class);
 
 // change lang of website
 Route::get('/lang', function (Request $request) {

@@ -71,7 +71,13 @@
                 <i class="fe fe-layers fe-16"></i>
                 <span class="ml-3 item-text">{{__('Classrooms')}}</span>
               </a>
-            </li> 
+            </li>
+            <li class="nav-item w-100">
+              <a class="nav-link" href="{{route('specialties.index')}}">
+                <i class="fe fe-layers fe-16"></i>
+                <span class="ml-3 item-text">{{__('Specialties')}}</span>
+              </a>
+            </li>
            <li class="nav-item w-100">
               <a class="nav-link" href="{{route('parents.index')}}">
                 <i class="fe fe-layers fe-16"></i>

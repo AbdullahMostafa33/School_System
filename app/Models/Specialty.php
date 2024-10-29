@@ -9,11 +9,21 @@ class Specialty extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
+        'name','stage_id','grade_id'
     ];
 
     public function teachers()
     {
         return $this->belongsToMany(Teacher::class);
+    }
+
+    public function stage()
+    {
+        return $this->belongsTo(Stage::class);
+    }
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
     }
 }
