@@ -72,12 +72,37 @@
                 <span class="ml-3 item-text">{{__('Classrooms')}}</span>
               </a>
             </li>
-            <li class="nav-item w-100">
+            {{-- <li class="nav-item w-100">
               <a class="nav-link" href="{{route('specialties.index')}}">
                 <i class="fe fe-layers fe-16"></i>
                 <span class="ml-3 item-text">{{__('Specialties')}}</span>
               </a>
+            </li> --}}
+             <li class="nav-item dropdown">
+              <a href="#specialties_element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">{{__('Academic Specialties')}}</span>
+              </a>
+              <ul class="collapse list-unstyled pl-4 w-100" id="specialties_element">
+                <li class="nav-item w-100">
+                 <a class="nav-link" href="{{route('specialties.index')}}">
+                <i class="fe fe-layers fe-16"></i>
+                <span class="ml-3 item-text">{{__('Specialties')}}</span>
+              </a>
             </li>
+                <li class="nav-item w-100">
+              <a class="nav-link" href="{{route('distribute.specialties.index')}}">
+                <i class="fe fe-layers fe-16"></i>
+                <span class="ml-3 item-text">{{__('Distribute Specialties')}}</span>
+              </a>
+            </li>                                                          
+              </ul>
+              <li class="nav-item w-100">
+              <a class="nav-link" href="{{route('fees.index')}}">
+                <i class="fe fe-layers fe-16"></i>
+                <span class="ml-3 item-text">{{__('Manage Fees')}}</span>
+              </a>
+            </li>  
            <li class="nav-item w-100">
               <a class="nav-link" href="{{route('parents.index')}}">
                 <i class="fe fe-layers fe-16"></i>

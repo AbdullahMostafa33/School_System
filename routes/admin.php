@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\Distribute_Specilties;
 use App\Http\Controllers\FeeController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\InvoiceController;
@@ -41,6 +42,8 @@ Route::resource('/invoices', InvoiceController::class);
 
 Route::delete('/specialties/delete_selection', [SpecialtyController::class, 'delete_selection'])->name('specialties.delete.selection');
 Route::resource('/specialties', SpecialtyController::class);
+
+Route::resource('/distribute/specialties', Distribute_Specilties::class)->names('distribute.specialties');
 
 // change lang of website
 Route::get('/lang', function (Request $request) {

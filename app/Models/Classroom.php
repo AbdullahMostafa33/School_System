@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PHPUnit\Event\Code\Test;
 use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class Classroom extends Model
@@ -38,4 +39,14 @@ class Classroom extends Model
     {
         return $this->belongsTo(Grade::class);
     }
+
+    public function specialties(){
+        return $this->belongsToMany(Specialty::class, 'classroom_specialty_teacher')->withPivot('teacher_id');
+    }
+
+    public function teacher($id)
+    {
+       return Teacher::find($id);
+    }
+
 }

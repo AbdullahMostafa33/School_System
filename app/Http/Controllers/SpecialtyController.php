@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classroom;
 use App\Models\Stage;
 use App\Models\Grade;
 use App\Models\Specialty;
@@ -17,7 +18,7 @@ class SpecialtyController extends Controller
         $stages = Stage::all();
         $grades = Grade::all();
         $specialties = Specialty::all();
-        return view('admin.specialties', compact('stages','grades','specialties'));
+        return view('admin.specialties.index', compact('stages','grades','specialties'));
     }
 
     /**
