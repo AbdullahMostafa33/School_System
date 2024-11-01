@@ -134,17 +134,23 @@
     "Update Distribute Teachers": "تحديث توزيع المعلمين ",
     "Delete Distribute": "حذف توزيع",
     "Add Distribute Teachers": "اضافة توزيع المعلمين",
+    "Add Online Class": "اضافة حصة اونلاين",
+    "Online Class": "حصة اونلاين",
+    "Duration in minutes": "المدة الزمنية بالدقائق",
+    "Global": "عام",
+    "Online Classes": "الحصص الاونلاين",
+    "Host Link": "رابط البدء",
+    "Join Link": "رابط الانضمام",
+    "Start At": "بدء الحصة",
+    "Update Online Class": "تحديث الحصة",
+    "Show Online Class":"عرض الحصة",
+    "": "",
     "": "",
     "": "",
     "":"",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": ""
+    "":"",
+    "":""
+
     
 
 }

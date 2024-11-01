@@ -72,12 +72,6 @@
                 <span class="ml-3 item-text">{{__('Classrooms')}}</span>
               </a>
             </li>
-            {{-- <li class="nav-item w-100">
-              <a class="nav-link" href="{{route('specialties.index')}}">
-                <i class="fe fe-layers fe-16"></i>
-                <span class="ml-3 item-text">{{__('Specialties')}}</span>
-              </a>
-            </li> --}}
              <li class="nav-item dropdown">
               <a href="#specialties_element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
                 <i class="fe fe-box fe-16"></i>
@@ -143,7 +137,19 @@
                 <span class="ml-3 item-text">{{__('Manage Invoices')}}</span>
               </a>
             </li>  
-            </li>         
+            </li>  
+            <li class="nav-item dropdown">
+              <a href="#online_element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+                <i class="fe fe-box fe-16"></i>
+                <span class="ml-3 item-text">{{__('Online Class')}}</span>
+              </a>
+              <ul class="collapse list-unstyled pl-4 w-100" id="online_element">   
+                <li class="nav-item w-100">
+                 <a class="nav-link" href="{{route('onlineClass.index')}}">
+                <i class="fe fe-layers fe-16"></i>
+                <span class="ml-3 item-text">{{__('Online Class')}}</span>
+              </a>
+            </li>       
           </ul>
           <div class="btn-box w-100 mt-4 mb-1">
             <a href="https://themeforest.net/item/tinydash-bootstrap-html-admin-dashboard-template/27511269" target="_blank" class="btn mb-2 btn-primary btn-lg btn-block">

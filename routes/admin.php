@@ -5,6 +5,7 @@ use App\Http\Controllers\Distribute_Specilties;
 use App\Http\Controllers\FeeController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\OnlineClassController;
 use App\Http\Controllers\ParentsController;
 use App\Http\Controllers\StageController;
 use App\Http\Controllers\StudentController;
@@ -44,6 +45,8 @@ Route::delete('/specialties/delete_selection', [SpecialtyController::class, 'del
 Route::resource('/specialties', SpecialtyController::class);
 
 Route::resource('/distribute/specialties', Distribute_Specilties::class)->names('distribute.specialties');
+
+Route::resource('/onlineClass', OnlineClassController::class);
 
 // change lang of website
 Route::get('/lang', function (Request $request) {
