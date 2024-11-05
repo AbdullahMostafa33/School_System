@@ -12,11 +12,18 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\SpecialtyController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
     
 });
+
+Route::get('admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('admin.dashboard')->middleware('admin');
+
+Route::middleware('admin')->group(function () {
 Route::resource('/stage', StageController::class);
 Route::get('/grades/get', [GradeController::class, 'getGrades'])->name('grades.get');
 Route::resource('/grades', GradeController::class);
@@ -47,12 +54,15 @@ Route::resource('/specialties', SpecialtyController::class);
 Route::resource('/distribute/specialties', Distribute_Specilties::class)->names('distribute.specialties');
 
 Route::resource('/onlineClass', OnlineClassController::class);
+});
 
 // change lang of website
 Route::get('/lang', function (Request $request) {
     setcookie('lang', $request->lang, time() + 3600, "/");   
     return back();
 })->name('lang');
+
+require __DIR__ . '/auth_admin.php';               
 
 
 

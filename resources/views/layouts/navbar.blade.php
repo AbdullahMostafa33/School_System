@@ -39,7 +39,10 @@
               <a class="dropdown-item" href="#">Profile</a>
               <a class="dropdown-item" href="#">Settings</a>
               <a class="dropdown-item" href="#">Activities</a>
-              <a class="dropdown-item" style="color: red" href="{{route('logout')}}">Logout</a>
+              <a class="dropdown-item" style="color: red"
+                    href="{{route('admin.logout')}}"
+           
+               >Logout</a>
             </div>
           </li>
         </ul>

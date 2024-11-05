@@ -82,7 +82,10 @@ class OnlineClassController extends Controller
                 'grade_id' => $request->grade_id == 'all' ? null : $request->grade_id,
                 'classroom_id' => $request->classroom_id == 'all' ? null : $request->classroom_id,
                 'specialty_id' => $request->specialty_id == 'global' ? null : $request->specialty_id,
-                'created_by' => Auth::user()->id,
+                
+                // redit this
+                'created_by' =>isset(Auth::guard('admin')->user()->id)? Auth::guard('admin')->user()->id: Auth::user()->id,
+
             ]);            
         }
         else return back()->withErrors(['error_zoom' => 'Error when Updating  zoom']);

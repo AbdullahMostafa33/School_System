@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,7 +11,7 @@ Route::get('/', function () {
 Route::get('/dashboard', function () 
 {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth:admin,teacher,web', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -18,27 +19,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/test/guard', function () {
+    if(Auth::guard('teacher')->check()){
+        return 'iam teacher : '.Auth::guard('teacher')->user()->name;
+    }
+    elseif(Auth::guard('admin')->check()){  
+        return 'iam admin : '.Auth::guard('admin')->user()->name;
+    }
+    elseif(Auth::check()){  return 'iam user : '.Auth::user()->name;}
+    else return 'not auth';
+});
+
+
 require __DIR__.'/auth.php';
 
+require __DIR__ . '/multi_auth.php';
 
-
-use Illuminate\Support\Facades\App;
-
-// Route::get('/', function () {
-//     // dd(app()->getLocale());
-//     return view('dashboard');
-// });
-
-
-// Route::get('/greeting/{locale}', function (string $locale) {
-//     if (! in_array($locale, ['en', 'ar'])) {
-//         abort(400);
-//     }
-
-//     App::setLocale($locale);
-
-//     $statges = Statge::all();
-//     return view('admin.statge', compact('statges'));
-
-// });
 

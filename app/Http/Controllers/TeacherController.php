@@ -46,7 +46,7 @@ class TeacherController extends Controller
                 'gender'=> 'required',
                 'specialty.*' => 'exists:specialties,id',
         ]);
-        
+        $request->merge(['password' => Hash::make($request->password)]);
        $teacher= Teacher::create(
             $request->all()
         );
